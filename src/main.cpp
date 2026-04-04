@@ -1,6 +1,8 @@
 #include <iostream>
-#include "utils/linux/l_GetSysInfo.hpp"
+#include "utils/PlatformAbstractLayer.hpp"
 
 int main(int, char**){
-    l_GetSysInfo a;
+    PlatformAbstractLayer a;
+    auto b = a.GetSysInfo();
+    return 0;
 }

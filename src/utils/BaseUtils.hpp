@@ -7,7 +7,7 @@ private:
     
 public:
     BaseUtils(/* args */) = default;
-    ~BaseUtils() = default;
+    virtual ~BaseUtils() = default;
 
     virtual SysInfo_t getSysInfo() = 0;
 };

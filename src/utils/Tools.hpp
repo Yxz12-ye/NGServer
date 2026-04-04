@@ -4,6 +4,8 @@ struct SysInfo_t
 {
     uint64_t cpuTotalTime = 0;
     uint64_t cpuIdelTime = 0;
+    uint64_t totalMemory = 0;
+    uint64_t availableMem = 0;
 };
 
 struct CpuSample_t
