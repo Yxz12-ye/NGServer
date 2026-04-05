@@ -35,7 +35,7 @@ struct CpuState_t {
     uint64_t softirq;  // 软件中断处理时间
     uint64_t steal;    // 虚拟化环境时间
 
-    uint64_t calcTotalTime() { return user + nice + system + irq + softirq + steal; }
+    uint64_t calcTotalTime() { return user + nice + system + idle + irq + softirq + steal; }
 };
 
 std::istream& operator>>(std::istream&, CpuState_t&);
