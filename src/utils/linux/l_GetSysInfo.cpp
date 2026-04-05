@@ -44,7 +44,7 @@ l_GetSysInfo::l_GetSysInfo() {
 
 SysInfo_t l_GetSysInfo::getSysInfo() {
     readCpuStatus();
-    std::this_thread::sleep_for(std::chrono::minutes(1));
+    std::this_thread::sleep_for(std::chrono::seconds(1));
     readCpuStatus();
     readMemInfo();
     return {m_cpuSample.totalTime[!m_cpuSample.p] - m_cpuSample.totalTime[m_cpuSample.p],
