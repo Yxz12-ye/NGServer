@@ -1,3 +1,5 @@
+#pragma once
+
 #include "./linux/l_GetSysInfo.hpp"
 #include "memory"
 
