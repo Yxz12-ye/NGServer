@@ -1,8 +1,8 @@
 #include <iostream>
-#include "utils/PlatformAbstractLayer.hpp"
+#include "service/GuardService.hpp"
 
 int main(int, char**){
-    PlatformAbstractLayer a;
-    auto b = a.GetSysInfo();
+    GuardService a;
+    a.run();
     return 0;
 }

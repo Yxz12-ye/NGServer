@@ -14,4 +14,3 @@ public:
 
     SysInfo_t GetSysInfo();
 };
-
