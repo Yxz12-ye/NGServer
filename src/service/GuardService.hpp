@@ -3,6 +3,7 @@
 #include "../utils/PlatformAbstractLayer.hpp"
 
 #include <boost/asio.hpp>
+#include "IBaseService.hpp"
 
 class RepeatedTimer
 {
@@ -28,19 +29,22 @@ public:
     void stop();
 };
 
-class GuardService
+class GuardService : public BaseService
 {
 private:
-    boost::asio::io_context m_io_ctx;
     std::unique_ptr<PlatformAbstractLayer> m_guard;
     std::chrono::milliseconds m_sample_timems = std::chrono::milliseconds(2000);
     boost::asio::thread_pool m_worker;
     RepeatedTimer m_timer;
 
 public:
-    GuardService();
+    GuardService(boost::asio::io_context&, boost::asio::thread_pool&);
     ~GuardService();
 
-    void run();
+    std::string name() const override {return "guard";};
+
+    void start() override;
+    void stop() override;
+    void join() override;
     void task();
 };

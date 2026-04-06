@@ -80,22 +80,31 @@ void RepeatedTimer::start(boost::asio::steady_timer::duration nextTime) {
 
 void RepeatedTimer::stop() {
     running = false;
+    m_timer.cancel();
 }
 
-GuardService::GuardService() : m_timer(m_io_ctx, m_worker, [this]() { this->task(); }), m_worker(1) {
+GuardService::GuardService(boost::asio::io_context& _io, boost::asio::thread_pool& _pool) 
+: BaseService(_io, _pool), m_timer(o_io_ctx, m_worker, [this]() { this->task(); }), m_worker(1) {
     m_guard = std::make_unique<PlatformAbstractLayer>();
 }
 
 GuardService::~GuardService() {
-    m_worker.join();
+
 }
 
-void GuardService::run() {
-    auto work_guard = boost::asio::make_work_guard(m_io_ctx);
+void GuardService::start() {
+    // auto work_guard = boost::asio::make_work_guard(o_io_ctx);
     // m_timer.start(RepeatedTimer::calcNextTime());
     m_timer.start(m_sample_timems);
-    m_io_ctx.run();
+    running_.store(true);
 }
+
+void GuardService::stop() {
+    running_.store(false);
+    m_timer.stop();
+}
+
+void GuardService::join() {}
 
 void GuardService::task() {
     // 这里自行判断拿到的数据是否有效, 以及数据库问题...
