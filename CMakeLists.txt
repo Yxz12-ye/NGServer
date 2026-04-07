@@ -5,6 +5,7 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+# set(CMAKE_VERBOSE_MAKEFILE ON)
 
 option(CMAKE_USE_VCPKG "Use vcpkg package manager" ON)
 
@@ -13,9 +14,10 @@ include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/use_vcpkg.cmake)
 file(GLOB_RECURSE SOURCES "src/*.cpp")
 
 find_package(Boost REQUIRED COMPONENTS asio)
+find_package(libpqxx CONFIG REQUIRED)
 
 add_executable(${PROJECT_NAME} ${SOURCES})
 
-target_link_libraries(${PROJECT_NAME} PRIVATE Boost::asio)
+target_link_libraries(${PROJECT_NAME} PRIVATE Boost::asio libpqxx::pqxx)
 
 target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/src)
